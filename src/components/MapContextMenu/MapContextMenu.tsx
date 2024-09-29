@@ -2,8 +2,15 @@ import { useMutation } from "@apollo/client";
 import { useState } from "react";
 import { useMapEvents } from "react-leaflet";
 import { ADD_LOCATION, Location } from "../../data/mutations";
+import PinIcon from "../../assets/icons/pin";
 
-export function ContextMenu() {
+
+export interface ContextMenuProps {
+  refetchLocations(): void;
+}
+
+export function ContextMenu({ refetchLocations }: ContextMenuProps) {
+
   const [visible, setVisible] = useState<boolean>(false);
   const [position, setPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [latLng, setLatLng] = useState<{ lat: number; lng: number } | null>(null);
@@ -18,12 +25,15 @@ export function ContextMenu() {
       setPosition({ x: containerPoint.x, y: containerPoint.y });
       setLatLng({ lat: latlng.lat, lng: latlng.lng });
     },
+    dragstart: () => {
+      setVisible(false)
+    }
   });
 
   const trackLocation = async (e: React.MouseEvent) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
-    if(!latLng) {
+    if (!latLng) {
       return
     }
 
@@ -34,9 +44,10 @@ export function ContextMenu() {
     };
 
     try {
-        await addLocation({ variables: { ...input } }).then(() => setVisible(false));
+      await addLocation({ variables: { ...input } }).then(() => setVisible(false))
+        .then(refetchLocations)
     } catch (err) {
-        console.error("Error saving location:", err);
+      console.error("Error saving location:", err);
     }
   }
 
@@ -44,7 +55,7 @@ export function ContextMenu() {
 
   return (
 
-    <div className="absolute bg-white z-[999] w-48 border border-gray-300 rounded flex flex-col text-sm py-4 px-2 text-gray-500 shadow-lg"
+    <div className="absolute bg-white z-[999] w-48 border border-gray-300 rounded flex flex-col text-sm shadow-lg cursor-default"
       style={{
         top: `${position.y}px`,
         left: `${position.x}px`,
@@ -53,13 +64,18 @@ export function ContextMenu() {
         pointerEvents: "auto",
       }}
     >
+      <div className="flex items-center justify-center gap-2 m-4">
+        <PinIcon height={16} width={16} />
+        {latLng && <p>{latLng?.lat.toFixed(2)}'N, {latLng?.lng.toFixed(2)}'E</p>}
+      </div>
+      <button className="flex hover:bg-gray-100 py-4 px-8 mt-2 rounded z-[999]" onClick={(e) => trackLocation(e)}>
+        <div>Track this location</div>
+      </button>
+      {/* context menu bottom arrow */}
       <div
         className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white rotate-45 z-[99]"
         style={{ top: "100%", left: "50%", marginTop: "-8px" }}
       />
-      <button className="flex hover:bg-gray-100 py-1 px-2 rounded z-[999]" onClick={(e) => trackLocation(e)}>
-        <div>Track this location</div>
-      </button>
     </div>
   );
 }

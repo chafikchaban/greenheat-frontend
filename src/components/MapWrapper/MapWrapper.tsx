@@ -4,14 +4,14 @@ import { LocationWeatherData } from "../../data/queries";
 import { MapContainer, TileLayer } from 'react-leaflet'
 
 
-import { ContextMenu } from "../MapContextMenu/MapContextMenu";
+import { ContextMenu, ContextMenuProps } from "../MapContextMenu/MapContextMenu";
 import { MapMarkers } from "../MapMarkers/MapMarkers";
 
-export interface MyMapProps {
-  data: LocationWeatherData[]
+export interface MyMapProps extends ContextMenuProps {
+  data: LocationWeatherData[];
 }
 
-export function MyMap({ data }: MyMapProps) {
+export function MyMap({ data, refetchLocations }: MyMapProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
@@ -49,7 +49,7 @@ export function MyMap({ data }: MyMapProps) {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <MapMarkers data={data}/>
-          <ContextMenu />
+          <ContextMenu refetchLocations={refetchLocations} />
         </MapContainer>
       )}
     </div>

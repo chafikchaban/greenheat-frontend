@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client';
 import { GET_WEATHER_FOR_LOCATIONS, GetWeatherForLocationsData } from './data/queries'
 
 function App() {
-  const { loading, error, data } = useQuery<GetWeatherForLocationsData>(GET_WEATHER_FOR_LOCATIONS);
+  const { loading, error, data, refetch } = useQuery<GetWeatherForLocationsData>(GET_WEATHER_FOR_LOCATIONS);
 
   const renderMap = () => {
     if (loading) {
@@ -20,7 +20,7 @@ function App() {
 
     const { weatherForLocations } = data;
 
-    return <MyMap data={weatherForLocations} />
+    return <MyMap data={weatherForLocations} refetchLocations={refetch} />
   }
 
   return (
