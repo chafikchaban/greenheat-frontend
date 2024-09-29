@@ -1,7 +1,7 @@
 export default function NavBar() {
 
     return (
-        <nav className='sticky top-0 z-[999] text-primary-foreground flex justify-between items-center gap-12 px-4 min-h-20 h-[96px] shadow-default'>
+        <nav className='sticky top-0 z-[999] text-primary-foreground flex justify-between items-center gap-12 px-4 min-h-20 h-[96px] shadow-default bg-white'>
             <a href="/" title="home">
                 <img src="src/assets/images/logo.png" className="h-[64px]" />
             </a>

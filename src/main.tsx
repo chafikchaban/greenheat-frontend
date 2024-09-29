@@ -1,18 +1,33 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { ApolloProvider } from '@apollo/client'
-import NavBar from './components/navBar/Navbar.tsx'
+import CurrentWeatherPage from './pages/CurrentWeatherPage/CurrentWeatherPage.tsx'
+import NavBar from './components/NavBar/Navbar.tsx'
 import client from './data/ApolloClient.ts'
-import App from './App.tsx'
+
 
 import './index.css'
 import 'leaflet/dist/leaflet.css';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import ForecastPage from './pages/ForecastPage/ForecastPage.tsx'
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <CurrentWeatherPage />,
+  },
+  {
+    path: "/forecast",
+    element: <ForecastPage />,
+  },
+]);
+
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ApolloProvider client={client}>
       <NavBar />
-      <App />
+      <RouterProvider router={router} />
     </ApolloProvider>
   </StrictMode>,
 )
