@@ -3,6 +3,7 @@ import { gql } from '@apollo/client';
 export const GET_WEATHER_FOR_LOCATIONS = gql`
   query WeatherForLocations {
     weatherForLocations {
+        id
         cloudCoverage
         latitude
         locationName
@@ -16,6 +17,7 @@ export const GET_WEATHER_FOR_LOCATIONS = gql`
 `;
 
 export interface LocationWeatherData {
+    id: string;
     cloudCoverage: string;
     latitude: string;
     locationName: string;

@@ -5,15 +5,14 @@ import L from 'leaflet';
 import ReactDOM from "react-dom/client";
 import { getWeatherIcon } from "../../utils/utils";
 import { LocationWeatherData } from "../../data/queries";
-import { CustomMarkerContent } from "../CustomMarkerContent/CustomMarkerContent";
+import { CustomMarkerContent, CustomMarkerContentProps } from "../CustomMarkerContent/CustomMarkerContent";
 
-export interface CustomMarkerTargetProps {
+export interface CustomMarkerTargetProps extends CustomMarkerContentProps {
     position: L.LatLngExpression;
-    item: LocationWeatherData
 }
 
 // Custom Marker component that takes a position and React component
-export const CustomMarkerTarget: React.FC<CustomMarkerTargetProps> = memo(({ position, item }) => {
+export const CustomMarkerTarget: React.FC<CustomMarkerTargetProps> = memo(({ position, item, removeLocation }) => {
     const map = useMap();
 
     useEffect(() => {
@@ -24,21 +23,21 @@ export const CustomMarkerTarget: React.FC<CustomMarkerTargetProps> = memo(({ pos
         }).addTo(map);
 
         // Bind the popup to the marker
-        marker.bindPopup(createPopupContent(item));
+        marker.bindPopup(createPopupContent(item, removeLocation));
 
         return () => {
             map.removeLayer(marker); // Cleanup when component unmounts
         };
-    }, [item, item.cloudCoverage, item.weatherCode, map, position]);
+    }, [item, item.cloudCoverage, item.weatherCode, map, position, removeLocation]);
 
     return null;
 });
 
 // Function to render React component or HTML inside the Leaflet Popup
-const createPopupContent = (item: LocationWeatherData) => {
+const createPopupContent = (item: LocationWeatherData, removeLocation: (id: string) => void) => {
     const div = document.createElement("div");
     const root = ReactDOM.createRoot(div);
-    root.render(<CustomMarkerContent item={item} />);
+    root.render(<CustomMarkerContent item={item} removeLocation={removeLocation} />);
     return div;
 };
 

@@ -44,8 +44,10 @@ export function ContextMenu({ refetchLocations }: ContextMenuProps) {
     };
 
     try {
-      await addLocation({ variables: { ...input } }).then(() => setVisible(false))
-        .then(refetchLocations)
+      await addLocation({ variables: { ...input } }).then(() => {
+        setVisible(false);
+        refetchLocations();
+      })
     } catch (err) {
       console.error("Error saving location:", err);
     }
@@ -55,7 +57,7 @@ export function ContextMenu({ refetchLocations }: ContextMenuProps) {
 
   return (
 
-    <div className="absolute bg-white z-[999] w-48 border border-gray-300 rounded flex flex-col text-sm shadow-lg cursor-default"
+    <div className="absolute bg-white z-[999] w-48 rounded-lg flex flex-col text-sm shadow-leaflet cursor-default"
       style={{
         top: `${position.y}px`,
         left: `${position.x}px`,
@@ -68,7 +70,7 @@ export function ContextMenu({ refetchLocations }: ContextMenuProps) {
         <PinIcon height={16} width={16} />
         {latLng && <p>{latLng?.lat.toFixed(2)}'N, {latLng?.lng.toFixed(2)}'E</p>}
       </div>
-      <button className="flex hover:bg-gray-100 py-4 px-8 mt-2 rounded z-[999]" onClick={(e) => trackLocation(e)}>
+      <button className="flex hover:bg-gray-200 py-4 px-9 mt-2 rounded-b-lg z-[999]" onClick={(e) => trackLocation(e)}>
         <div>Track this location</div>
       </button>
       {/* context menu bottom arrow */}

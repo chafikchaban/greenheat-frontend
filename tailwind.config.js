@@ -11,6 +11,7 @@ export default {
       },
       boxShadow: {
         'default': '0 3px 10px rgba(0, 0, 0, .15)',
+        "leaflet": '0 3px 14px rgba(0,0,0,0.4)'
       }
     },
   },

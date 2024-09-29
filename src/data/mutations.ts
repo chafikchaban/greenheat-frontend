@@ -15,3 +15,13 @@ export interface Location {
     latitude: string;
     longitude: string;
 }
+
+export const DELETE_LOCATION = gql`
+  mutation DeleteLocationMutation($id: String!) {
+    deleteLocation(id: $id) {
+      name
+      latitude
+      longitude
+    }
+  }
+`;
