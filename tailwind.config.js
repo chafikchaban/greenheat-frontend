@@ -9,9 +9,6 @@ export default {
       colors: {
         primary: "#635DFF"
       },
-      backgroundImage: {
-        'logo': "url('./src/assets/images//logo.svg')",
-      },
       boxShadow: {
         'default': '0 3px 10px rgba(0, 0, 0, .15)',
       }
