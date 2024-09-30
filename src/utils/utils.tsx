@@ -6,6 +6,7 @@ import SnowyIcon from "../assets/icons/snow";
 import StormIcon from "../assets/icons/storm";
 import SunnyIcon from "../assets/icons/sunny";
 import WindDirectionIcon, { WindDirection } from "../assets/icons/windDirection";
+import { DailyWeatherData, WeatherUnits } from "../data/queries";
 
 /**
  * Converts weather code in WMO and cloud coverage in percentage to corresponding weather icon.
@@ -14,12 +15,12 @@ import WindDirectionIcon, { WindDirection } from "../assets/icons/windDirection"
  * @param cloudCoverage - weather code as string
  * @returns The corresponding weather icon as a React.FC
  */
-export function getWeatherIcon(weathercode: number, cloudCoverage: string): React.FC {
+export function getWeatherIcon(weathercode: number, cloudCoverage?: string): React.FC {
     switch (weathercode) {
         case 0:
             return SunnyIcon;  // Clear sky
         case 1:
-            return Number(cloudCoverage) < 20 ? MainlyClearIcon : PartlyCloudyDayIcon;  // Mainly clear or partly cloudy
+            return cloudCoverage && Number(cloudCoverage) > 20 ? PartlyCloudyDayIcon : MainlyClearIcon;  // Mainly clear or partly cloudy
         case 2:
             return PartlyCloudyDayIcon;  // Partly cloudy
         case 3:
@@ -37,7 +38,7 @@ export function getWeatherIcon(weathercode: number, cloudCoverage: string): Reac
         case 82:
             return StormIcon;  // Thunderstorm
         default:
-            return Number(cloudCoverage) > 50 ? CloudyIcon : SunnyIcon;  // Fallback based on cloud cover
+            return cloudCoverage && Number(cloudCoverage) > 50 ? CloudyIcon : SunnyIcon;  // Fallback based on cloud cover
     }
 }
 
@@ -60,5 +61,49 @@ export function getWindDirectionIcon(windDirection: number): React.ReactElement 
 
 
     return <WindDirectionIcon direction={directionString} />
+}
 
+/**
+ * Formats API weatherData into ForecastChat ready to use data
+ * 
+ * @param weatherData - API weather data
+ * @param units - API weather units
+ * @returns A formatted array of data for the ForecastChat component
+ */
+export function formatDailyData(weatherData: DailyWeatherData, units: WeatherUnits): WeatherDataPoint[] {
+    const { time, temperature_2m_max, temperature_2m_min, wind_direction_10m_dominant, uv_index_max, weather_code, wind_speed_10m_max } = weatherData;
+
+    const formattedData = time.map((date, index) => ({
+        date,
+        maxTemp: temperature_2m_max[index],
+        minTemp: temperature_2m_min[index],
+        windSpeed: wind_speed_10m_max[index],
+        uvIndex: uv_index_max[index],
+        weatherIcon: getWeatherIcon(weather_code[index]),
+        windDirectionIcon: getWindDirectionIcon(wind_direction_10m_dominant[index]),
+        units: {
+            maxTemp: units.temperature_2m_max,
+            minTemp: units.temperature_2m_min,
+            windSpeed: units.wind_speed_10m_max,
+        }
+    }));
+
+    return formattedData;
+}
+
+export interface WeatherDataPoint {
+    date: string;
+    maxTemp: number;
+    minTemp: number;
+    windSpeed: number;
+    uvIndex: number;
+    weatherIcon: React.FC;
+    windDirectionIcon: React.ReactElement;
+    units: WeatherDataPointUnits;
+}
+
+export interface WeatherDataPointUnits {
+    maxTemp: string;
+    minTemp: string;
+    windSpeed: string;
 }
