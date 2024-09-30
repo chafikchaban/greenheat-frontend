@@ -25,7 +25,7 @@ export default function CurrentWeatherPage() {
 
   return (
     <div className='h-screen w-full my-4 flex flex-col items-center gap-4'>
-      <h2 className='font-semibold text-2xl'>Current Weather</h2>
+      <h2 className='font-semibold text-2xl my-12'>Current Weather</h2>
       <main className="h-2/3 w-4/5 flex items-center justify-center">
         {renderMap()}
       </main>

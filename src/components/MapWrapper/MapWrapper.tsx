@@ -47,6 +47,7 @@ export function MyMap({ data, refetchLocations }: MyMapProps) {
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            noWrap={true}
           />
           <MapMarkers data={data} refetchLocations={refetchLocations}/>
           <ContextMenu refetchLocations={refetchLocations} />

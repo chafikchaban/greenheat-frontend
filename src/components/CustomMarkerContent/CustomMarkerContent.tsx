@@ -34,9 +34,10 @@ export const CustomMarkerContent: React.FC<CustomMarkerContentProps> = memo(({ i
                         {renderIcon()}
                     </div>
                     <div id="temp">
-                        <h6 className="text-4xl">{item.temperature}°C</h6>
-                        <p className="text-xs text-gray-500">Wind Speed: {item.windSpeed}</p>
-                        <p className="text-xs text-gray-500">Cloud coverage: {item.cloudCoverage}</p>
+                        <h6 className="text-4xl">{item.temperature} {item.units.temperature_2m}</h6>
+                        <p className="text-xs text-gray-500">Wind Speed: {item.windSpeed} {item.units.wind_speed_80m}</p>
+                        <p className="text-xs text-gray-500">Cloud coverage: {item.cloudCoverage} {item.units.cloud_cover}</p>
+                        <p className="text-xs text-gray-500">UV index: {item.uvIndex}</p>
                     </div>
                 </div>
             </div>
