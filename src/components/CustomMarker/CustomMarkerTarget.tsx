@@ -16,7 +16,7 @@ export const CustomMarkerTarget: React.FC<CustomMarkerTargetProps> = memo(({ pos
     const map = useMap();
 
     useEffect(() => {
-        const icon: React.FC = getWeatherIcon(item.weatherCode, item.cloudCoverage)
+        const icon: React.FC = getWeatherIcon(item.weather_code, item.cloudCoverage)
 
         const marker = L.marker(position, {
             icon: createDivIcon(icon),
@@ -28,7 +28,7 @@ export const CustomMarkerTarget: React.FC<CustomMarkerTargetProps> = memo(({ pos
         return () => {
             map.removeLayer(marker); // Cleanup when component unmounts
         };
-    }, [item, item.cloudCoverage, item.weatherCode, map, position, removeLocation]);
+    }, [item, item.cloudCoverage, item.weather_code, map, position, removeLocation]);
 
     return null;
 });

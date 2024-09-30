@@ -1,5 +1,16 @@
 import { gql } from '@apollo/client';
 
+export const GET_LOCATIONS = gql`
+  query Locations {
+    locations {
+        id
+        name
+        latitude
+        longitude
+    }
+  }
+`;
+
 export const GET_WEATHER_FOR_LOCATIONS = gql`
   query WeatherForLocations {
     weatherForLocations {
@@ -49,6 +60,13 @@ export const GET_WEEKLY_WEATHER_FORECAST = gql`
   }
 `
 
+export interface Location {
+  id: string;
+  name: string;
+  latitude: string;
+  longitude: string;
+}
+
 export interface LocationWeatherData {
   id: string;
   cloudCoverage: string;
@@ -85,6 +103,10 @@ export interface DailyWeatherData {
   wind_direction_10m_dominant: number[];
   uv_index_max: number[];
   weather_code: number[];
+}
+
+export interface GetLocationsData {
+  locations: Location[];
 }
 
 
