@@ -11,11 +11,12 @@ export const GET_WEATHER_FOR_LOCATIONS = gql`
         temperature
         uvIndex
         windSpeed
-        weatherCode
+        weather_code
+        wind_direction_10m
         units {
-          temperature2m
-          temperature2mMax
-          temperature2mMin
+          temperature_2m
+          temperature_2m_max
+          temperature_2m_min
           cloud_cover
           wind_speed_80m
           uv_index
@@ -33,7 +34,8 @@ export interface LocationWeatherData {
   temperature: number;
   uvIndex: number;
   windSpeed: number;
-  weatherCode: number;
+  weather_code: number;
+  wind_direction_10m: number;
   units: WeatherUnits;
   dilyUnits: WeatherUnits;
   hourlyUnits: WeatherUnits;

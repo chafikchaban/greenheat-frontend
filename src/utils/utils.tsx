@@ -5,7 +5,15 @@ import RainyIcon from "../assets/icons/rainy";
 import SnowyIcon from "../assets/icons/snow";
 import StormIcon from "../assets/icons/storm";
 import SunnyIcon from "../assets/icons/sunny";
+import WindDirectionIcon, { WindDirection } from "../assets/icons/windDirection";
 
+/**
+ * Converts weather code in WMO and cloud coverage in percentage to corresponding weather icon.
+ * 
+ * @param weathercode - weather code in WMO
+ * @param cloudCoverage - weather code as string
+ * @returns The corresponding weather icon as a React.FC
+ */
 export function getWeatherIcon(weathercode: number, cloudCoverage: string): React.FC {
     switch (weathercode) {
         case 0:
@@ -31,4 +39,26 @@ export function getWeatherIcon(weathercode: number, cloudCoverage: string): Reac
         default:
             return Number(cloudCoverage) > 50 ? CloudyIcon : SunnyIcon;  // Fallback based on cloud cover
     }
+}
+
+/**
+ * Converts wind direction in degrees to a corresponding compass direction icon (N, NE, E, etc.).
+ * 
+ * @param windDirection - Wind direction in degrees (0 - 360)
+ * @returns The corresponding compass direction icon as a React.ReactElement
+ */
+export function getWindDirectionIcon(windDirection: number): React.ReactElement {
+    if (windDirection < 0 || windDirection > 360) {
+        throw new Error("Wind direction must be between 0 and 360 degrees.");
+    }
+
+    const directions: WindDirection[] = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+
+    // Convert degrees to index
+    const index = Math.round(windDirection / 45);  // 360 degrees / 8 directions = 45 degrees per direction
+    const directionString = directions[index % 8];
+
+
+    return <WindDirectionIcon direction={directionString} />
+
 }
