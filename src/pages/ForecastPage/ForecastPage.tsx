@@ -5,9 +5,12 @@ import { useCallback, useState } from "react";
 import ForecastPageHeader from "./components/Header";
 import { WeatherControl } from "../../utils/utils";
 
+function getDefaultControlsState(): WeatherControl[] {
+  return [{ label: 'Max Temperature', value: 'temperature_2m_max', key: 'maxTemp', color: '#ff7300' }]
+}
 export default function ForecastPage() {
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
-  const [controls, setControls] = useState<WeatherControl[]>([]);
+  const [controls, setControls] = useState<WeatherControl[]>(getDefaultControlsState);
 
   const { loading, error, data } = useQuery<GetLocationsData>(GET_LOCATIONS, {
     onCompleted(data) {
