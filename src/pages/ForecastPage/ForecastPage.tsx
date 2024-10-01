@@ -46,12 +46,8 @@ export default function ForecastPage() {
   }
 
   return (
-    <div className='h-full w-full my-4 flex flex-col items-center gap-4'>
-      <div className="flex gap-4 items-center w-4/5 justify-between">
-        <div />
-        <h2 className='font-semibold text-2xl my-12'>Forecast</h2>
-        {renderHeader()}
-      </div>
+    <div className='h-full w-full py-8 flex flex-col items-center gap-4'>
+      {renderHeader()}
       <main className="h-2/3 w-4/5 flex items-center justify-center">
         <WeeklyForecastdashboard locationID={selectedLocation.id} />
       </main>
