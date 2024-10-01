@@ -107,3 +107,19 @@ export interface WeatherDataPointUnits {
     minTemp: string;
     windSpeed: string;
 }
+
+export interface WeatherControl {
+    label: string;
+    value: string;
+    key: string;
+    color: string;
+}
+
+export const weatherControls: WeatherControl[] = [
+    { label: 'Max Temperature', value: 'temperature_2m_max', key: 'maxTemp', color: '#ff7300' },
+    { label: 'Min Temperature', value: 'temperature_2m_min', key: 'minTemp', color: '#ff7300' },
+    { label: 'Max Wind Speed', value: 'wind_speed_10m_max', key: 'windSpeed', color: '#ff7300' },
+    { label: 'Max UV Index', value: 'uv_index_max', key: 'uvIndexMax', color: '#ff7300' },
+    { label: 'Dominant Wind Direction', value: 'wind_direction_10m_dominant', key: '', color: '#ff7300' },
+    { label: 'Weather Code', value: 'weather_code', key: '', color: '#ff7300' },
+];

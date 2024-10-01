@@ -37,8 +37,8 @@ export const GET_WEATHER_FOR_LOCATIONS = gql`
 `;
 
 export const GET_WEEKLY_WEATHER_FORECAST = gql`
-  query WeeklyWeatherForecast($locationID: String!) { 
-    WeatherForecast(locationID: $locationID) { 
+  query WeeklyWeatherForecast($locationID: String!, $metrics: [String!]) { 
+    WeatherForecast(locationID: $locationID, metrics: $metrics) { 
       locationName 
       latitude 
       longitude 
