@@ -40,7 +40,7 @@ export default function WeeklyForecastdashboard({ locationID }: WeeklyForecastda
     ];
 
     const uvIndexLines: LineChartLine[] = [
-        { key: 'uvIndex', color: '#d0177f' },
+        { key: 'uvIndexMax', color: '#d0177f' },
     ];
 
     const formattedData: WeatherDataPoint[] = formatDailyData(WeatherForecast.daily, WeatherForecast.dailyUnits);
@@ -54,7 +54,7 @@ export default function WeeklyForecastdashboard({ locationID }: WeeklyForecastda
                 <Card title="Wind Speed">
                     <ForecastChat data={formattedData} lines={windLines} />
                 </Card>
-                <Card title="UV index">
+                <Card title="UV index Max">
                     <ForecastChat data={formattedData} lines={uvIndexLines} />
                 </Card>
             </div>

@@ -14,6 +14,8 @@ export function ContextMenu({ refetchLocations }: ContextMenuProps) {
   const [visible, setVisible] = useState<boolean>(false);
   const [position, setPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [latLng, setLatLng] = useState<{ lat: number; lng: number } | null>(null);
+  const [inputVisible, setInputVisible] = useState<boolean>(false);
+  const [locationName, setLocationName] = useState<string>("");
 
   const [addLocation] = useMutation(ADD_LOCATION);
 
@@ -26,8 +28,15 @@ export function ContextMenu({ refetchLocations }: ContextMenuProps) {
       setLatLng({ lat: latlng.lat, lng: latlng.lng });
     },
     dragstart: () => {
+      setVisible(false);
+      setInputVisible(false);
+      setLocationName('');
+    },
+    zoomstart: () => {
       setVisible(false)
-    }
+      setInputVisible(false);
+      setLocationName('');
+    },
   });
 
   const trackLocation = async (e: React.MouseEvent) => {
@@ -38,7 +47,7 @@ export function ContextMenu({ refetchLocations }: ContextMenuProps) {
     }
 
     const input: Location = {
-      name: 'test name',
+      name: locationName,
       latitude: latLng?.lat.toFixed(6).toString(),
       longitude: latLng.lng.toFixed(6).toString(),
     };
@@ -46,6 +55,8 @@ export function ContextMenu({ refetchLocations }: ContextMenuProps) {
     try {
       await addLocation({ variables: { ...input } }).then(() => {
         setVisible(false);
+        setInputVisible(false);
+        setLocationName('');
         refetchLocations();
       })
     } catch (err) {
@@ -57,7 +68,7 @@ export function ContextMenu({ refetchLocations }: ContextMenuProps) {
 
   return (
 
-    <div className="absolute bg-white z-[999] w-48 rounded-lg flex flex-col text-sm shadow-leaflet cursor-default"
+    <div className="absolute bg-white z-[999] w-48 rounded-lg flex flex-col text-sm text-gray-600 shadow-leaflet cursor-default"
       style={{
         top: `${position.y}px`,
         left: `${position.x}px`,
@@ -70,8 +81,27 @@ export function ContextMenu({ refetchLocations }: ContextMenuProps) {
         <PinIcon height={16} width={16} />
         {latLng && <p>{latLng?.lat.toFixed(2)}'N, {latLng?.lng.toFixed(2)}'E</p>}
       </div>
-      <button className="flex hover:bg-gray-200 py-4 px-9 mt-2 rounded-b-lg z-[999]" onClick={(e) => trackLocation(e)}>
-        <div>Track this location</div>
+      {!inputVisible ? (
+        <div className="italic mx-4 text-center">( untracked )</div>
+      ) : (
+        <input
+          type="text"
+          placeholder="Enter location name"
+          className="border border-gray-300 p-2 rounded mb-2 mx-4"
+          value={locationName}
+          onChange={(e) => setLocationName(e.target.value)}
+        />
+      )}
+      <button
+        className="hover:bg-gray-200 py-4 px-9 mt-2 rounded-b-lg z-[999]"
+        onClick={(e) => {
+          if (!inputVisible) {
+            setInputVisible(true);
+          } else {
+            trackLocation(e);
+          }
+        }}>
+        <div>{!inputVisible ? 'Track this location' : 'Save'}</div>
       </button>
       {/* context menu bottom arrow */}
       <div

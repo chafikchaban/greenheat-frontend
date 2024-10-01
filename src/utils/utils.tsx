@@ -78,7 +78,7 @@ export function formatDailyData(weatherData: DailyWeatherData, units: WeatherUni
         maxTemp: temperature_2m_max[index],
         minTemp: temperature_2m_min[index],
         windSpeed: wind_speed_10m_max[index],
-        uvIndex: uv_index_max[index],
+        uvIndexMax: uv_index_max[index],
         weatherIcon: getWeatherIcon(weather_code[index]),
         windDirectionIcon: getWindDirectionIcon(wind_direction_10m_dominant[index]),
         units: {
@@ -96,7 +96,7 @@ export interface WeatherDataPoint {
     maxTemp: number;
     minTemp: number;
     windSpeed: number;
-    uvIndex: number;
+    uvIndexMax: number;
     weatherIcon: React.FC;
     windDirectionIcon: React.ReactElement;
     units: WeatherDataPointUnits;
