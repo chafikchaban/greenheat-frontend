@@ -8,8 +8,12 @@ COPY package.json .
 
 RUN npm install
 
-
 COPY . .
+
+# Set the correct environment file
+ARG ENVIRONMENT=docker
+COPY .env.${ENVIRONMENT} ./.env
+
 
 EXPOSE 4200
 
