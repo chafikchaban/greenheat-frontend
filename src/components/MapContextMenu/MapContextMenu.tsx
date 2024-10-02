@@ -68,7 +68,9 @@ export function ContextMenu({ refetchLocations }: ContextMenuProps) {
 
   return (
 
-    <div className="absolute bg-white z-[999] w-48 rounded-lg flex flex-col text-sm text-gray-600 shadow-leaflet cursor-default"
+    <div
+      className="absolute bg-white z-[999] w-48 rounded-lg flex flex-col text-sm text-gray-600 shadow-leaflet cursor-default"
+      data-testid="context-menu"
       style={{
         top: `${position.y}px`,
         left: `${position.x}px`,

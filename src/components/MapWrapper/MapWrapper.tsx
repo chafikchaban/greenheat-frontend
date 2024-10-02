@@ -35,6 +35,7 @@ export function MyMap({ data, refetchLocations }: MyMapProps) {
   return (
     <div
       ref={mapContainerRef}
+      data-testid="map-container"
       className="h-full w-full relative"
     >
       {dimensions.width && dimensions.height && (
