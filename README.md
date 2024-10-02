@@ -1,5 +1,4 @@
-# adjoe | chafik - demo
-
+# # GreenHeat Weather Forecast App 
 
 This project was bootstrapped using [Vite](https://vitejs.dev/). 
 
@@ -11,6 +10,13 @@ Tools used in this project:
 - [Playwright](https://playwright.dev/) for end to end tests.
 - [Graphql](https://graphql.org/) as a query language.
 - [Apollo Client](https://www.apollographql.com/docs/react/) as a Graphql client.
+
+## Screenshots
+#### Current weather map
+![image](https://github.com/user-attachments/assets/364436d7-f1bc-4704-8e2d-84782a20d9c8)
+
+#### 7 day forecast 
+![image](https://github.com/user-attachments/assets/f98cc75b-880f-49bd-bcf5-9879bea263dc)
 
 ## Installation 📦
 
