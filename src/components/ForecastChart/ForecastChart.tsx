@@ -8,14 +8,14 @@ export interface LineChartLine {
     unit?: string;
 }
 
-export interface ForecastChatProps {
+export interface ForecastChartProps {
     data: WeatherDataPoint[];
     lines: LineChartLine[];
     height?: number;
 }
-export function ForecastChat({ data, lines, height = 400 }: ForecastChatProps) {
+export function ForecastChart({ data, lines, height = 400 }: ForecastChartProps) {
 
-    if (!data) {
+    if (!data.length) {
         return (<div className='w-full h-[400px] text-center'>No data</div>)
     }
 

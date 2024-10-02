@@ -64,11 +64,11 @@ export function getWindDirectionIcon(windDirection: number): React.ReactElement 
 }
 
 /**
- * Formats API weatherData into ForecastChat ready to use data
+ * Formats API weatherData into ForecastChart ready to use data
  * 
  * @param weatherData - API weather data
  * @param units - API weather units
- * @returns A formatted array of data for the ForecastChat component
+ * @returns A formatted array of data for the ForecastChart component
  */
 export function formatDailyData(weatherData: DailyWeatherData, units: WeatherUnits): WeatherDataPoint[] {
     const { time, temperature_2m_max, temperature_2m_min, wind_direction_10m_dominant, uv_index_max, weather_code, wind_speed_10m_max } = weatherData;
@@ -97,8 +97,8 @@ export interface WeatherDataPoint {
     minTemp: number;
     windSpeed: number;
     uvIndexMax: number;
-    weatherIcon: React.FC;
-    windDirectionIcon: React.ReactElement;
+    weatherIcon?: React.FC;
+    windDirectionIcon?: React.ReactElement;
     units: WeatherDataPointUnits;
 }
 

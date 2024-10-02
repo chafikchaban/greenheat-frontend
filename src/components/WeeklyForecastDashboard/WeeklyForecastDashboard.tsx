@@ -1,5 +1,5 @@
 import { Card } from "../../components/Card/Card";
-import { ForecastChat, LineChartLine } from "../../components/ForecastChart/ForecastChart";
+import { ForecastChart, LineChartLine } from "../../components/ForecastChart/ForecastChart";
 import { formatDailyData, WeatherDataPoint, WeatherControl, weatherControls } from "../../utils/utils";
 import { useQuery } from "@apollo/client";
 import { GET_WEEKLY_WEATHER_FORECAST, GetWeeklyWeatherForecastData } from "../../data/queries";
@@ -45,7 +45,7 @@ export default function WeeklyForecastdashboard({ locationID, metrics }: WeeklyF
 
         return (
             <Card key="temperature" title="Temperature">
-                <ForecastChat
+                <ForecastChart
                     data={formattedData}
                     lines={lines}
                 />
@@ -68,7 +68,7 @@ export default function WeeklyForecastdashboard({ locationID, metrics }: WeeklyF
 
             return (
                 <Card key={metric.key} title={metric.key}>
-                    <ForecastChat data={formattedData} lines={lines} />
+                    <ForecastChart data={formattedData} lines={lines} />
                 </Card>
             );
         })

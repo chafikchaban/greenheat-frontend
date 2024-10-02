@@ -1,4 +1,4 @@
-interface CheckboxProps {
+export interface CheckboxProps {
     checked: boolean;
     label: string;
     value: string;
