@@ -7,8 +7,8 @@ export default function NavBar() {
                 <img src="src/assets/images/logo.png" className="h-[64px]" />
             </a>
             <div className="flex justify-center gap-4 items-center">
-                <a href="/" title="home" className={`font-semibold text-xl text-${currentPath === '/' ? 'green' : 'gray'}-600`}>Current Weather</a>
-                <a href="/forecast" title="forecast" className={`font-semibold text-xl text-${currentPath === '/forecast' ? 'green' : 'gray'}-600`}>Forecast</a>
+                <a href="/" title="home" className={`font-semibold text-xl ${currentPath === '/' ? 'text-green-600' : 'text-gray-600'}`}>Current Weather</a>
+                <a href="/forecast" title="forecast" className={`font-semibold text-xl ${currentPath === '/forecast' ? 'text-green-600' : 'text-gray-600'}`}>Forecast</a>
             </div>
             <div></div>
         </nav>
